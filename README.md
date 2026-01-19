@@ -148,12 +148,11 @@ after some time we will get a shell as user mat! lets quickly navigate to the /h
 
 # Shell as will:
 
-`Hi Mat,
+`Hi Mat,`
 
-I've set up your sudo rights to use the python script as my user. You can only run the script with sudo so it should be safe.
+`I've set up your sudo rights to use the python script as my user. You can only run the script with sudo so it should be safe.`
 
-Will
-` 
+`Will` 
 
 now we will navigate to the /home/mat/scripts directory and find two python scripts. the first script is cmd.py which can be edited by us while the second script is will_script.py which cannot be edited by us but we have some privileges accoriding to the note above. 
 
