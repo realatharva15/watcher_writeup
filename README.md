@@ -120,12 +120,11 @@ sudo -u toby /bin/bash
 
 now we have a shell as toby. lets navigate to the /home/toby directory and read the flag_4.txt flag and submit it. in the same directory we find a note.txt.
 
-`Hi Toby,
+`Hi Toby,`
 
-I've got the cron jobs set up now so don't worry about getting that done.
+`I've got the cron jobs set up now so don't worry about getting that done.`
 
-Mat
-`
+`Mat`
 
 this is a hint at a cronjob which runs as user mat. lets check out the script which is run via cron jobs
 
