@@ -42,6 +42,8 @@ on fuzzing the directories, i found some intesting pages:
 
 on accessing the /robots.txt directory, we find two hidden directories. the first directory leads us to the flag1. the second directory is a hint for finding the rest of the flags.
 
+![image1](https://github.com/realatharva15/watcher_writeup/blob/main/images/Screenshot%202026-01-19%20at%2020-20-18%20.png)
+
 on reading the hint for the flag2 i thought that the LFI would be present at the /index.php page. but i was wrong. after some minutes of fuzzing parameters for LFI on the /index.php page, i finally gave up and started interacting with the main page until i found the actual vulnerability at the url
 
 ```bash
