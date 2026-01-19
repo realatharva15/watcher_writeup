@@ -57,6 +57,8 @@ here we can clearly see an LFI vulnerability. using this we will first try to ge
 http://<target_ip>/post.php?post=../../../../var/www/html/secret_file_do_not_read.txt 
 ```
 
+![image3](https://github.com/realatharva15/watcher_writeup/blob/main/images/secret_file1.png)
+
 we find the ftp credentials. using this we can access the ftp server at the port 21. 
 
 ```bash
