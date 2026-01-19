@@ -30,9 +30,9 @@ on fuzzing the directories, i found some intesting pages:
 
 /.htpasswd            (Status: 403) [Size: 278]
 
-/css                  (Status: 301) [Size: 312] [--> http://10.81.173.230/css/]                                                               
+/css                  (Status: 301) [Size: 312]                                                              
 
-/images               (Status: 301) [Size: 315] [--> http://10.81.173.230/images/]                                                            
+/images               (Status: 301) [Size: 315]                                                          
 
 /index.php            (Status: 200) [Size: 4826]
 
