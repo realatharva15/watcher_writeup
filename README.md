@@ -1,8 +1,8 @@
 # Try Hack Me - Watcher
 # Author: Atharva Bordavekar
 # Diffculty: Medium
-# Points:
-# Vulnerabilities:
+# Points: 210
+# Vulnerabilities: LFI, RCE, cronjob abuse, PrivEsc via sudo privileges
 # Phase 1 - Reconnaissance:
 
 nmap scan:
@@ -25,12 +25,19 @@ gobuster dir -u http://<target_ip> -w /usr/share/wordlists/medium.txt
 on fuzzing the directories, i found some intesting pages:
 
 /.hta                 (Status: 403) [Size: 278]
+
 /.htaccess            (Status: 403) [Size: 278]
+
 /.htpasswd            (Status: 403) [Size: 278]
+
 /css                  (Status: 301) [Size: 312] [--> http://10.81.173.230/css/]                                                               
+
 /images               (Status: 301) [Size: 315] [--> http://10.81.173.230/images/]                                                            
+
 /index.php            (Status: 200) [Size: 4826]
+
 /robots.txt           (Status: 200) [Size: 69]
+
 /server-status        (Status: 403) [Size: 278]
 
 on accessing the /robots.txt directory, we find two hidden directories. the first directory leads us to the flag1. the second directory is a hint for finding the rest of the flags.
@@ -56,6 +63,9 @@ we find the flag2. lets download it using the get command
 ```bash
 get flag_2.txt
 ```
+
+# Phase 2 - Initial Foothold:
+
 now lets try to exploit RCE via LFI. after accessing the /var/www/html/apache2/access.log i came to understand that log poisoning was not possible. lets find some other way around. so i spent nearly 2 hours on trying to get an initial foothold by trying the /proc poisoning using burpsuite but we were not sucessful doing that. then i remembered that there exists a /files directory on the ftp server. i quickly login into ftp again and navigate to the /files directory. now what we will do is try to upload a reverseshell on the system in order to get shell as www-data
 
 ```bash
@@ -75,6 +85,8 @@ nc -lnvp 4444
 ```
 now simply paste this in your browser
 
+# Shell as www-data:
+
 ```bash
 #in your browser:
 http://<target_ip>/post.php?post=/home/ftpuser/ftp/files/revshell.php 
@@ -87,6 +99,8 @@ find / -name "flag_3.txt" 2>/dev/null
 the path of the flag_3.txt is at the location /var/www/html/more_secrets_a9f10a/flag_3.txt. we simply read the flag_3.txt flag and submit it.
 
 now lets gain access as the next user with higher privileges. we will have to get a shell as toby. lets check what privileges the user www-data has using the command sudo -l
+
+# Shell as toby:
 
 ```bash
 sudo -l
@@ -101,6 +115,8 @@ this is the easiest way to get a shell as toby.
 ```bash
 sudo -u toby /bin/bash
 ```
+
+# Shell as mat:
 
 now we have a shell as toby. lets navigate to the /home/toby directory and read the flag_4.txt flag and submit it. in the same directory we find a note.txt.
 
@@ -130,6 +146,8 @@ now we will setup a listner at the port 5555
 nc -lnvp 5555
 ```
 after some time we will get a shell as user mat! lets quickly navigate to the /home/mat directory. we read and submit the flag_5.txt. now there is another note.txt which will be hint for the privilege escalation from user mat to user will. lets read the contents of it.
+
+# Shell as will:
 
 `Hi Mat,
 
@@ -163,7 +181,12 @@ use sudo as user will trigger the reverse shell
 #don't forget to provide an argument
 sudo -u will /usr/bin/python3 /home/mat/scripts/will_script.py 1
 ```
-we have a shell as will! lets run linpeas on the system and find the way to get a root shell. after running and analysing the linpeas output, we found out an interesting file at /opt/backups. 
+
+we have a shell as will! lets run linpeas on the system and find the way to get a root shell. 
+
+# Phase 3 - Shell as ROOT:
+
+after running and analysing the linpeas output, we found out an interesting file at /opt/backups. 
 
 ```bash
 cat /opt/backups/key.b64
