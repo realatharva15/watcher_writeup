@@ -199,6 +199,8 @@ now we get a long base64 string which we will decode using cyber chef.
 
 after decoding the base64 encoded string, the output is that of the private keys of some user. since there is no other user higher than will, it must belong to the user root! we will save the contents of the base64 decoded string to a file named root_id_rsa
 
+![image4](https://github.com/realatharva15/watcher_writeup/blob/main/images/Screenshot%202026-01-19%20at%2023-39-38%20From%20Base64%20-%20CyberChef.png)
+
 ```bash
 # don't forget to give the root_id_rsa the appropriate permissions:
 chmod 600 root_id_rsa
