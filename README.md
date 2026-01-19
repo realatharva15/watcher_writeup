@@ -46,6 +46,8 @@ on accessing the /robots.txt directory, we find two hidden directories. the firs
 
 on reading the hint for the flag2 i thought that the LFI would be present at the /index.php page. but i was wrong. after some minutes of fuzzing parameters for LFI on the /index.php page, i finally gave up and started interacting with the main page until i found the actual vulnerability at the url
 
+![image2](https://github.com/realatharva15/watcher_writeup/blob/main/images/LFI.png)
+
 ```bash
 http://10.81.173.230/post.php?post=../../../../etc/passwd
 ```
